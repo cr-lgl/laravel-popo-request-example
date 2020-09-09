@@ -1,0 +1,23 @@
+version: '3.7'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  workspace:
+    tty: true
+    build:
+      context: ./workspace
+      dockerfile: ./Dockerfile
+      args:
+        PHP_VERSION: '7.4.9'
+        APP_USER_ID: '${APP_USER_ID}'
+        APP_GROUP_ID: '${APP_GROUP_ID}'
+    volumes:
+      - ${APP_PATH}:/var/www/html
+    networks:
+      - backend
+    ports:
+    - ${WORKSPACE_PORT}:8000
+
