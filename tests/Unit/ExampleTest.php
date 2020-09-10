@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use App\Http\Requests\ExampleRequest;
+use App\Factories\Requests\JsonMapperExampleRequestFactory;
+use Illuminate\Http\Request;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ExampleTest
@@ -21,12 +21,17 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest(): void
     {
-        $request = ExampleRequest::create('/', Request::METHOD_POST, [
-            'num' => 123,
-            'text' => 'Hello, world!',
-        ]);
+        $factory = new JsonMapperExampleRequestFactory();
 
-        $payload = $request->toPayload();
+        $payload = $factory->createFromLaravelRequest(Request::create(
+            '/',
+            Request::METHOD_POST,
+            [
+                'num' => 123,
+                'text' => 'Hello, world!',
+            ]
+        ));
+
         $this->assertEquals(123, $payload->getNum());
         $this->assertEquals('Hello, world!', $payload->getText());
     }
