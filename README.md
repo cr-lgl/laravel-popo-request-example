@@ -1,6 +1,8 @@
 # laravel-popo-request-example
 Laravel Plain Old PHP Object Request For Service(Action) Layer
 
+https://ceobe.dev/laravel-popo-request-for-service-layer/
+
 ## Run
 
 ```bash
